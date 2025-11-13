@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=DaVinci Resolve (NVIDIA GPU)
+Comment=Launch DaVinci Resolve with NVIDIA GPU
+Exec=/path/to/launch-resolve-nvidia-simple.sh
+Icon=/opt/resolve/graphics/DV_Resolve.png
+Terminal=false
+Categories=AudioVideo;Video;
+StartupNotify=true
+Path=/opt/resolve
