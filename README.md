@@ -16,9 +16,18 @@ These scripts set the proper environment variables to force DaVinci Resolve to u
 
 ## Files
 
+**Scripts:**
 - **launch-resolve-nvidia.sh** - Interactive launcher with GPU checks and diagnostics
 - **launch-resolve-nvidia-simple.sh** - Minimal launcher for desktop entries
+- **install.sh** - Automated installation script
 - **davinci-resolve-nvidia.desktop** - Desktop entry example
+
+**Documentation:**
+- **README.md** - This file
+- **TROUBLESHOOTING.md** - Comprehensive troubleshooting guide
+- **CONTRIBUTING.md** - Contribution guidelines
+- **CHANGELOG.md** - Version history
+- **LICENSE** - MIT License
 
 ## Requirements
 
@@ -29,11 +38,32 @@ These scripts set the proper environment variables to force DaVinci Resolve to u
 
 ## Installation
 
-### Quick Install
+### Automated Install (Recommended)
+
+```bash
+# Download and run the installer
+curl -fsSL https://raw.githubusercontent.com/yesthatsjames/davinci-resolve-nvidia-launcher/main/install.sh | bash
+```
+
+Or clone and run:
+```bash
+git clone https://github.com/yesthatsjames/davinci-resolve-nvidia-launcher.git
+cd davinci-resolve-nvidia-launcher
+./install.sh
+```
+
+The installer will:
+- Check for NVIDIA drivers and DaVinci Resolve
+- Let you choose installation location (user or system-wide)
+- Install launcher scripts
+- Create desktop entry
+- Configure everything automatically
+
+### Manual Install
 
 ```bash
 # 1. Download the simple launcher
-wget https://raw.githubusercontent.com/YOUR-USERNAME/davinci-resolve-nvidia-launcher/main/launch-resolve-nvidia-simple.sh
+wget https://raw.githubusercontent.com/yesthatsjames/davinci-resolve-nvidia-launcher/main/launch-resolve-nvidia-simple.sh
 
 # 2. Make it executable
 chmod +x launch-resolve-nvidia-simple.sh
@@ -49,7 +79,7 @@ launch-resolve-nvidia-simple.sh
 
 ```bash
 # 1. Download the desktop entry
-wget https://raw.githubusercontent.com/YOUR-USERNAME/davinci-resolve-nvidia-launcher/main/davinci-resolve-nvidia.desktop
+wget https://raw.githubusercontent.com/yesthatsjames/davinci-resolve-nvidia-launcher/main/davinci-resolve-nvidia.desktop
 
 # 2. Edit the Exec path to point to your script location
 nano davinci-resolve-nvidia.desktop
@@ -69,7 +99,7 @@ For the interactive version with diagnostics:
 
 ```bash
 # Download and make executable
-wget https://raw.githubusercontent.com/YOUR-USERNAME/davinci-resolve-nvidia-launcher/main/launch-resolve-nvidia.sh
+wget https://raw.githubusercontent.com/yesthatsjames/davinci-resolve-nvidia-launcher/main/launch-resolve-nvidia.sh
 chmod +x launch-resolve-nvidia.sh
 
 # Run it
@@ -106,36 +136,34 @@ After launching Resolve:
 
 ## Troubleshooting
 
-### "NVIDIA driver may not be loaded"
+Having issues? Check the **[comprehensive troubleshooting guide](TROUBLESHOOTING.md)** for solutions to:
 
-Load the NVIDIA kernel modules:
+- GPU detection issues
+- Out of memory errors
+- Performance problems
+- Installation issues
+- Desktop entry problems
+- Driver issues
+- DaVinci Resolve specific errors
+
+**Quick fixes:**
+
+### "NVIDIA driver may not be loaded"
 ```bash
 sudo modprobe nvidia nvidia_modeset nvidia_uvm
 ```
 
-### "nvidia-smi failed"
-
-Check NVIDIA driver installation:
-```bash
-nvidia-smi
-lsmod | grep nvidia
-```
-
-If not working, reinstall NVIDIA drivers for your distribution.
-
 ### Resolve still uses iGPU
+1. Run from terminal to verify environment variables
+2. In Resolve: Preferences > Memory and GPU > Disable Intel GPU
+3. Set GPU Processing Mode to CUDA
 
-1. Check that Resolve is actually using the script (run from terminal to see output)
-2. Verify environment variables are set: `echo $__NV_PRIME_RENDER_OFFLOAD`
-3. In Resolve preferences, manually disable other GPUs
-4. Try rebooting after driver installation
+### Out of memory errors
+- Lower timeline resolution: Playback > Timeline Resolution > Quarter
+- Generate optimized media or proxies
+- Monitor GPU: `watch -n 1 nvidia-smi`
 
-### Out of memory errors persist
-
-- Reduce timeline resolution (Settings > Timeline Resolution)
-- Use optimized media/proxy files
-- Close other GPU-intensive applications
-- Check available GPU memory: `nvidia-smi`
+**For detailed solutions, see [TROUBLESHOOTING.md](TROUBLESHOOTING.md)**
 
 ## Tested On
 
